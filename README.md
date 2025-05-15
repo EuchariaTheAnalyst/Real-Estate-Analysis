@@ -107,5 +107,8 @@ SUMX(
 * **Top Profit Product:** Land, with \$14.29M profit.
 * **Top Salesperson:** John Doe with \$124.98M in sales.
 * **Top Sales Country:** UK with \$94.92M.
-* **Recommendation:** Focus on high-revenue products (like Villas) and profitable products (like Land) while maintaining sales performance in high-yield regions such as the UK.
+
+### Recommendation
+
+Focus on high-revenue products (like Villas) and profitable products (like Land) while maintaining sales performance in high-yield regions such as the UK.
 
