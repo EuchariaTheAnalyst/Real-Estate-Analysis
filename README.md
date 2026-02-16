@@ -8,107 +8,161 @@
 4. [Steps Taken](#StepsTaken)
 5. [Dashbord](#Dashboard)
 6. [Insights and Conclusions](#InsightsandConclusions)
+   
+--- 
+
 ## Introduction
 
-The Real Estate Sales Dashboard provides a comprehensive overview of a company's sales performance, product distribution and regional market insights. It is designed to facilitate data-driven decision-making by offering clear visualizations and key performance indicators (KPIs).
+Real estate revenue can look strong at a glance, but without structured analysis, it is difficult to understand what truly drives growth, profitability, and regional performance.
 
-This dashboard highlights total sales, profit, and quantity sold, while also breaking down performance by product type, country, and salesperson. It enables stakeholders to monitor revenue trends, identify top-selling products and evaluate the effectiveness of the sales team. Additionally, the interactive slicers allow for focused analysis by country and salesperson, helping the management make more informed strategic decisions.
+This dashboard transforms raw sales transactions, inventory data, and pricing records into a clear story of where revenue is generated, which products drive volume versus profit, and how individual salespeople and regions influence overall performance.
 
-By leveraging this dashboard, the company can optimize inventory management, enhance regional targeting, and maximize overall profitability.
+With $564M in total sales and $56M in profit, the key question becomes:
+Is growth driven by the right products, markets, and people or is revenue masking deeper opportunity gaps?
+
+The dashboard provides visibility into product performance, salesperson contribution, and country-level distribution, enabling leadership to shift from reactive reporting to strategic planning.
+
+---
 
 ## Objectives
 
-The primary objective of the Real Estate Sales Dashboard is to provide a holistic view of the company’s sales performance and profitability. By leveraging key metrics and interactive visualizations, the dashboard aims to:
+The goal of this project is to move beyond surface-level revenue reporting and answer critical business questions:
 
-1. **Evaluate Sales Performance:**
+**Evaluate Sales Performance**
 
-   * Track total sales, profit, and quantity sold to gauge the overall business performance.
-   * Identify top-selling products and high-revenue regions to inform strategic decision-making.
+- How much revenue and profit is the business truly generating?
+- Which product categories contribute the most to revenue versus profitability?
 
-2. **Analyze Product and Inventory Data:**
+**Analyze Product and Inventory Dynamics**
 
-   * Assess sales by product type to understand customer preferences and optimize product offerings.
-   * Monitor quantity sold versus available stock to ensure efficient inventory management.
+- Are high-volume products also high-margin products?
+- Where is inventory demand strongest?
 
-3. **Understand Regional and Sales Team Dynamics:**
+**Understand Regional and Sales Team Performance**
 
-   * Visualize sales distribution by country to identify key markets and growth opportunities.
-   * Analyze individual salesperson performance to recognize top performers and address gaps.
+- Which countries drive the highest revenue?
+- Which salespeople generate the most value versus volume?
 
-4. **Enhance Data-Driven Decision-Making:**
+**Enable Strategic Decision-Making**
 
-   * Use interactive slicers for country and salesperson to focus on specific data points.
-   * Generate actionable insights to support sales strategy, product planning, and team performance evaluation.
+- Identify top-performing markets and products
+- Detect profitability gaps hidden behind high sales volume
+- Support performance management across the sales team
+
+---
 
 ## Key Metrics
 
-* **Total Sales:** \$564M
-* **Total Profit:** \$56M
-* **Quantity Sold:** 3K
-* **Top Product Type by Sales:** Villa (\$140M)
-* **Top Product Type by Quantity Sold:** Villa (574, 19.15%)
-* **Top Product Type by Profit:** Land (\$14,292,083)
-* **Highest Salesperson by Revenue:** John Doe (\$124,979,481), Quantity Sold (631)
-* **Highest Salesperson by Quantity Sold:** Chris Johnson (656), Revenue (\$119,868,403)
-* **Country with Highest Sales:** UK (\$94,921,747)
+- Total Sales: $564M
+- Total Profit: $56M
+- Quantity Sold: 3K
+
+**Performance Leaders:**
+
+- Top Revenue Product: Villa ($140M)
+- Top Volume Product: Villa (574 units, 19.15%)
+- Top Profit Product: Land ($14.29M)
+- Top Salesperson by Revenue: John Doe ($124.98M, 631 units)
+- Top Salesperson by Quantity: Chris Johnson (656 units, $119.87M)
+- Top Revenue Country: UK ($94.92M)
+
+These figures reveal that revenue concentration exists across specific products, individuals, and regions.
+
+---
 
 ## Steps Taken
 
 ### 1. Data Loading and Preparation
 
-* Imported the Customer Data and Product Inventory and Pricing worksheets into Power BI.
-* Ensured data consistency, performed cleaning, and removed duplicates.
-* Combined data from the two sheets using Product Type as the key.
+- Imported Customer Transactions data
+- Imported Product Inventory and Pricing data
+- Cleaned inconsistencies and removed duplicates
+- Standardized naming conventions
+- Merged datasets using Product Type as the relational key
+
+This ensured a unified model connecting transactions with cost and pricing data.
 
 ### 2. Data Transformation
 
 * Renamed columns for clarity.
 * Merged tables on **Product Type** to calculate metrics.
-* Calculated **Total Profit** using the formula:  
+* Calculated **Total Profit** using the formula:
+```Dax
 SUMX(
     'Customer Transactions',
     RELATED('Product Inventory & Pricing'[Invoice Amount])
     - RELATED('Product Inventory & Pricing'[Cost])
 )
+```
+This allowed profitability to be analyzed at transaction level rather than relying on aggregated assumptions.
 
 ### 3. DAX Calculations
 
-* Created DAX measures:
+ Created DAX measures:
 
-  * **Total Sales:**  SUM('Customer Transactions'[Amount Paid]).
-  * **Total Profit:** SUMX(
+ * **Total Sales:**
+    ```Dax
+    SUM('Customer Transactions'[Amount Paid]).
+    ```
+  * **Total Profit:**
+   ``` Dax
+   SUMX(
     'Customer Transactions',
     RELATED('Product Inventory & Pricing'[Invoice Amount]) - RELATED('Product Inventory & Pricing'[Cost])).
-  * **Quantity Sold:** SUM('Customer Transactions'[Quantity Purchased]).
-  
+   ```
+  * **Quantity Sold:**
+  ``` Dax
+  SUM('Customer Transactions'[Quantity Purchased]).
+  ```
+  These measures power all KPI and visual insights within the dashboard.
+
+---
 
 ### 4. Visualization
 
-* **KPIs:** Total Sales, Total Profit, Quantity Sold.
-* **Bar Chart:** Total Sales by Product Type.
-* **Doughnut Chart:** Quantity Sold by Product Type.
-* **Map:** Sales by Country.
-* **Table Matrix:** Salesperson, Sales by Salesperson, Quantity Sold.
-* **Slicers:** Country and Salesperson for interactive filtering.
+The dashboard includes:
 
-### 5. Formatting and Interaction
+- KPI cards for Total Sales, Total Profit, and Quantity Sold
+- Bar chart for Sales by Product Type
+- Doughnut chart for Quantity Distribution
+- Geographic map for Sales by Country
+- Matrix table for Salesperson performance
+- Interactive slicers for Country and Salesperson
 
-* Applied conditional formatting to highlight the highest values (i.e. highest sales in a distinct color).
-* Ensured slicers function seamlessly across visuals.
-* Customized the bar chart to display the highest bars in a specific color.
+Conditional formatting highlights top contributors to immediately surface performance leaders.
+
+---
 
 ### Dashboard
 
 <img width="716" alt="Image" src="https://github.com/user-attachments/assets/4f022f96-6e78-40fb-b465-b1fe6f3909d0" />
 
+---
+
 ## Insights and Conclusions
 
-* **High Revenue Product:** Villa, contributing \$140M.
-* **Top Profit Product:** Land, with \$14.29M profit.
-* **Top Salesperson:** John Doe with \$124.98M in sales.
-* **Top Sales Country:** UK with \$94.92M.
+The data reveals a clear revenue concentration pattern.
+
+Villa dominates both revenue and sales volume, contributing $140M and nearly one fifth of total units sold. However, the most profitable product is Land, generating $14.29M in profit, showing that revenue and profitability do not always align.
+
+John Doe leads in total revenue, while Chris Johnson leads in quantity sold, demonstrating that high volume does not automatically translate to highest revenue generation.
+
+Regionally, the UK contributes the largest share of total sales, positioning it as a strategic priority market.
+
+Overall, the dashboard reveals three critical insights:
+
+- High revenue products are not always the most profitable.
+- Individual performance varies between revenue efficiency and sales volume.
+- Revenue concentration in specific countries presents both strength and risk exposure.
+
+---
 
 ### Recommendation
 
-Focus on high-revenue products (like Villas) and profitable products (like Land) while maintaining sales performance in high-yield regions such as the UK.
+- Focus on scaling high-margin products like Land while maintaining Villa’s strong revenue contribution.
+- Develop targeted strategies to replicate UK performance in emerging regions.
+- Align sales incentives not only to volume but also to profitability.
+- Use performance benchmarking to elevate mid-performing sales representatives.
+
+This dashboard converts transaction-level data into strategic intelligence, enabling leadership to optimize product mix, regional focus, and sales team effectiveness for sustained growth.
 
